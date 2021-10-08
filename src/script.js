@@ -30,28 +30,7 @@ const initialMatriz = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 ];
 
-let nextGenerationMatriz;
 
-function nextGeneration(matriz) {
-    for (let i = 0; i < matriz.length; i++) {
-        for (let j = 0; j < matriz[i].length; j++) {
-            numberOfLivingNeighbors = getNumberOfLivingNeighbors([i][j]);
-            if (matriz[i][j] === 1) {
-                if (numberOfLivingNeighbors === 2 || numberOfLivingNeighbors === 3) {
-                    matriz[i][j] = 1;
-                } else {
-                    matriz[i][j] = 0;
-                }
-
-            } else if (matriz[i][j] === 0) {
-                if (numberOfLivingNeighbors === 3) {
-                    matriz[i][j] = 1
-                }
-            }
-        }
-    }
-    return nextMatriz;
-}
 
 function getNumberOfLivingNeighbors(matriz, i, j) {
     let numberOfLivingNeighbors = 0;
@@ -67,4 +46,28 @@ function getNumberOfLivingNeighbors(matriz, i, j) {
     return numberOfLivingNeighbors;
 }
 
+function nextGeneration(matriz) {
+    let nextGenerationMatriz;
+    for (let i = 0; i < matriz.length; i++) {
+        for (let j = 0; j < matriz[i].length; j++) {
+            const numberOfLivingNeighbors = getNumberOfLivingNeighbors(matriz, i, j);
+            if (matriz[i][j] === 1) {
+                if (numberOfLivingNeighbors === 2 || numberOfLivingNeighbors === 3) {
+                    nextGenerationMatriz[i][j].push(1);
+                } else {
+                    nextGenerationMatriz[i][j].push(0);
+                }
+
+            } else if (matriz[i][j] === 0) {
+                if (numberOfLivingNeighbors === 3) {
+                    nextGenerationMatriz[i][j].push(1);
+                }
+            }
+        }
+    }
+    return nextGenerationMatriz;
+}
+
+nextGeneration(initialMatriz);
 console.log('getNumberOfLivingNeighbors(initialMatriz[4][5]): ', getNumberOfLivingNeighbors(initialMatriz, 0, 0));
+console.log('nextGeneration(initialMatriz): ', nextGeneration(initialMatriz));
