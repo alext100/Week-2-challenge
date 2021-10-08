@@ -21,8 +21,8 @@ const initialMatriz = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
+    [0, 0, 0, 0, 1, 1, 1, 0, 0, 0],
     [0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -30,9 +30,12 @@ const initialMatriz = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 ];
 
+let nextGenerationMatriz;
+
 function nextGeneration(matriz) {
     for (let i = 0; i < matriz.length; i++) {
-        for (j = 0; j < matriz[i].length; j++) {
+        for (let j = 0; j < matriz[i].length; j++) {
+            numberOfLivingNeighbors = getNumberOfLivingNeighbors([i][j]);
             if (matriz[i][j] === 1) {
                 if (numberOfLivingNeighbors === 2 || numberOfLivingNeighbors === 3) {
                     matriz[i][j] = 1;
@@ -47,9 +50,21 @@ function nextGeneration(matriz) {
             }
         }
     }
-
-
-
-
     return nextMatriz;
 }
+
+function getNumberOfLivingNeighbors(matriz, i, j) {
+    let numberOfLivingNeighbors = 0;
+    if (matriz[i][j + 1] === 1) { numberOfLivingNeighbors++ }
+    if (matriz[i][j - 1] === 1) { numberOfLivingNeighbors++ }
+    if (matriz[i + 1][j] === 1) { numberOfLivingNeighbors++ }
+    if (matriz[i + 1][j] === 1) { numberOfLivingNeighbors++ }
+    if (matriz[i + 1][j + 1] === 1) { numberOfLivingNeighbors++ }
+    if (matriz[i - 1][j + 1] === 1) { numberOfLivingNeighbors++ }
+    if (matriz[i - 1][j - 1] === 1) { numberOfLivingNeighbors++ }
+    if (matriz[i - 1][j - 1] === 1) { numberOfLivingNeighbors++ }
+
+    return numberOfLivingNeighbors;
+}
+
+console.log('getNumberOfLivingNeighbors(initialMatriz[4][5]): ', getNumberOfLivingNeighbors(initialMatriz, 0, 0));
