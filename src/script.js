@@ -18,56 +18,71 @@ function of the preceding one.The rules
 continue to be applied repeatedly to create further generations. */
 
 const initialMatriz = [
+    [0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 1, 1, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
-    [0, 0, 0, 0, 1, 1, 1, 0, 0, 0],
-    [0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    [0, 0, 0, 0, 1, 1, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 1, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 1, 1, 0],
+    [0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
 ];
-
-
 
 function getNumberOfLivingNeighbors(matriz, i, j) {
     let numberOfLivingNeighbors = 0;
     if (matriz[i][j + 1] === 1) { numberOfLivingNeighbors++ }
-    if (matriz[i][j - 1] === 1) { numberOfLivingNeighbors++ }
-    if (matriz[i + 1][j] === 1) { numberOfLivingNeighbors++ }
-    if (matriz[i + 1][j] === 1) { numberOfLivingNeighbors++ }
-    if (matriz[i + 1][j + 1] === 1) { numberOfLivingNeighbors++ }
-    if (matriz[i - 1][j + 1] === 1) { numberOfLivingNeighbors++ }
-    if (matriz[i - 1][j - 1] === 1) { numberOfLivingNeighbors++ }
-    if (matriz[i - 1][j - 1] === 1) { numberOfLivingNeighbors++ }
+    if ((j !== 0) && (matriz[i][j - 1] === 1)) { numberOfLivingNeighbors++ }
+    if ((i + 1) < matriz.length) {
+        if (matriz[i + 1][j] === 1) { numberOfLivingNeighbors++ }
+    }
+    if ((i + 1) < matriz.length) {
+        if (matriz[i + 1][j - 1] === 1) { numberOfLivingNeighbors++ }
+    }
+    if ((i + 1) < matriz.length) {
+        if ((i < matriz[i].length) && (matriz[i + 1][j + 1] === 1)) { numberOfLivingNeighbors++ }
+    }
+    if ((i !== 0) && (matriz[i - 1][j + 1] === 1)) { numberOfLivingNeighbors++ }
+    if ((i !== 0) && (j !== 0) && (matriz[i - 1][j - 1] === 1)) { numberOfLivingNeighbors++ }
+    if ((i !== 0) && (matriz[i - 1][j] === 1)) { numberOfLivingNeighbors++ }
 
     return numberOfLivingNeighbors;
 }
 
 function nextGeneration(matriz) {
-    let nextGenerationMatriz;
+    const nextGenerationMatriz = [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+    ];
+    debugger;
     for (let i = 0; i < matriz.length; i++) {
         for (let j = 0; j < matriz[i].length; j++) {
             const numberOfLivingNeighbors = getNumberOfLivingNeighbors(matriz, i, j);
             if (matriz[i][j] === 1) {
                 if (numberOfLivingNeighbors === 2 || numberOfLivingNeighbors === 3) {
-                    nextGenerationMatriz[i][j].push(1);
+                    nextGenerationMatriz[i].push(1);
                 } else {
-                    nextGenerationMatriz[i][j].push(0);
+                    nextGenerationMatriz[i].push(0);
                 }
 
             } else if (matriz[i][j] === 0) {
                 if (numberOfLivingNeighbors === 3) {
-                    nextGenerationMatriz[i][j].push(1);
-                }
+                    nextGenerationMatriz[i].push(1);
+                } else nextGenerationMatriz[i].push(0);
             }
         }
     }
     return nextGenerationMatriz;
 }
-
+console.clear();
 nextGeneration(initialMatriz);
-console.log('getNumberOfLivingNeighbors(initialMatriz[4][5]): ', getNumberOfLivingNeighbors(initialMatriz, 0, 0));
-console.log('nextGeneration(initialMatriz): ', nextGeneration(initialMatriz));
+console.table(nextGeneration(initialMatriz));
