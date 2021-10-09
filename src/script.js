@@ -30,6 +30,8 @@ const initialMatriz = [
     [0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
 ];
 
+const table40 = document.querySelector(".table__body");
+
 function getNumberOfLivingNeighbors(matriz, i, j) {
     let numberOfLivingNeighbors = 0;
     if (matriz[i][j + 1] === 1) { numberOfLivingNeighbors++ }
@@ -63,7 +65,7 @@ function nextGeneration(matriz) {
         [],
         [],
     ];
-    debugger;
+
     for (let i = 0; i < matriz.length; i++) {
         for (let j = 0; j < matriz[i].length; j++) {
             const numberOfLivingNeighbors = getNumberOfLivingNeighbors(matriz, i, j);
@@ -86,3 +88,41 @@ function nextGeneration(matriz) {
 console.clear();
 nextGeneration(initialMatriz);
 console.table(nextGeneration(initialMatriz));
+
+/* const pureFunctionalTable = data => [document.createElement('table')].filter(table => !table.appendChild(
+    data.reduce((tbody, row) =>
+        !tbody.appendChild(row.reduce((tr, cell) =>
+            !tr.appendChild(document.createElement('td'))
+            .appendChild(document.createTextNode(cell)) || tr, document.createElement('tr'))) || tbody, document.createElement('tbody'))) || table)[0];
+
+document.body.appendChild(pureFunctionalTable(nextGeneration(initialMatriz))); */
+
+/* pureFunctionalTable.addEventListener("click", (event) => {
+    if (event.target.nodeName === "TR") {
+        event.target.textContent = "X";
+    }
+}); */
+/* const tableGen = document.getElementsByTagName("table");
+tableGen.addEventListener('click', function() {
+    this.textContent = 'X';
+}); */
+
+const generateTableFromArray = tableData => {
+    const table = document.createElement('table');
+    table.classList.add("table")
+    let row = {};
+    let cell = {};
+
+    tableData.forEach((rowData) => {
+        row = table.insertRow(-1); // [-1] for last position in Safari
+        row.classList.add("row")
+        rowData.forEach((cellData) => {
+            cell = row.insertCell();
+            cell.classList.add("cell")
+            cell.textContent = cellData;
+        });
+    });
+    document.body.appendChild(table);
+}
+
+generateTableFromArray(nextGeneration(initialMatriz));
