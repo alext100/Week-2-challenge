@@ -30,8 +30,6 @@ const initialMatriz = [
     [0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
 ];
 
-const table40 = document.querySelector(".table__body");
-
 function getNumberOfLivingNeighbors(matriz, i, j) {
     let numberOfLivingNeighbors = 0;
     if (matriz[i][j + 1] === 1) { numberOfLivingNeighbors++ }
@@ -89,24 +87,6 @@ console.clear();
 nextGeneration(initialMatriz);
 console.table(nextGeneration(initialMatriz));
 
-/* const pureFunctionalTable = data => [document.createElement('table')].filter(table => !table.appendChild(
-    data.reduce((tbody, row) =>
-        !tbody.appendChild(row.reduce((tr, cell) =>
-            !tr.appendChild(document.createElement('td'))
-            .appendChild(document.createTextNode(cell)) || tr, document.createElement('tr'))) || tbody, document.createElement('tbody'))) || table)[0];
-
-document.body.appendChild(pureFunctionalTable(nextGeneration(initialMatriz))); */
-
-/* pureFunctionalTable.addEventListener("click", (event) => {
-    if (event.target.nodeName === "TR") {
-        event.target.textContent = "X";
-    }
-}); */
-/* const tableGen = document.getElementsByTagName("table");
-tableGen.addEventListener('click', function() {
-    this.textContent = 'X';
-}); */
-
 const generateTableFromArray = tableData => {
     const table = document.createElement('table');
     table.classList.add("table")
@@ -125,16 +105,11 @@ const generateTableFromArray = tableData => {
     document.body.appendChild(table);
 }
 
-const generatedTable = generateTableFromArray(nextGeneration(initialMatriz));
+generateTableFromArray(nextGeneration(initialMatriz));
 const tableCells = document.querySelectorAll(".cell");
 
 function createFirstGeneration() {
-
-    for (const cell of tableCells) {
-        cell.addEventListener('click', marker)
-    }
-
-    function marker() {
+    function changeState() {
         if (this.textContent === '1') {
             this.classList.add("cell--died");
             this.classList.remove("cell--alive");
@@ -144,6 +119,9 @@ function createFirstGeneration() {
             this.classList.remove("cell--died");
             this.textContent = '1';
         }
+    }
+    for (const cell of tableCells) {
+        cell.addEventListener('click', changeState)
     }
 }
 createFirstGeneration();
