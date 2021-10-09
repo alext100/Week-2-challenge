@@ -2,19 +2,19 @@ const tableContainer = document.getElementById("table-container");
 const startButton = document.querySelector(".buttons-block__start-button");
 
 const initialMatriz = [
-    [0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 1, 1, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
-    [0, 0, 0, 0, 1, 1, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 1, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 1, 1, 0],
-    [0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 ];
 
-function getNumberOfLivingNeighbors(matriz, i, j) {
+function getNumberOfLivingNeighbors(matriz, i, j) { // Counts the number of neighbors
     let numberOfLivingNeighbors = 0;
     if (matriz[i][j + 1] === 1) { numberOfLivingNeighbors++ }
     if ((j !== 0) && (matriz[i][j - 1] === 1)) { numberOfLivingNeighbors++ }
@@ -34,7 +34,7 @@ function getNumberOfLivingNeighbors(matriz, i, j) {
     return numberOfLivingNeighbors;
 }
 
-function nextGeneration(matriz) {
+function nextGeneration(matriz) { //  Generates a new array according to the rules of the game
     const nextGenerationMatriz = [
         [],
         [],
@@ -71,7 +71,9 @@ console.clear();
 nextGeneration(initialMatriz);
 console.table(nextGeneration(initialMatriz));
 
-const generateTableFromArray = tableData => {
+const table = document.querySelector('.table-container__table');
+
+const generateTableFromArray = tableData => { // Generates a table from array elements and displays it in html
     const table = document.createElement('table');
     table.classList.add("table-container__table")
     let row = {};
@@ -90,27 +92,42 @@ const generateTableFromArray = tableData => {
 }
 
 generateTableFromArray(nextGeneration(initialMatriz));
-const tableCells = document.querySelectorAll(".table__cell");
+let tableCells = document.querySelectorAll(".table__cell");
 
-function createFirstGeneration() {
-    function changeState() {
-        if (this.textContent === '1') {
-            this.classList.add("table__cell--died");
-            this.classList.remove("table__cell--alive");
-            this.textContent = '0';
-        } else if (this.textContent === '0') {
-            this.classList.add("table__cell--alive");
-            this.classList.remove("table__cell--died");
-            this.textContent = '1';
-        }
+function changeState() {
+    if (this.textContent === '1') {
+        this.classList.add("table__cell--died");
+        this.classList.remove("table__cell--alive");
+        this.textContent = '0';
+    } else if (this.textContent === '0') {
+        this.classList.add("table__cell--alive");
+        this.classList.remove("table__cell--died");
+        this.textContent = '1';
     }
+}
+
+function createFirstGeneration() { // Allows the user to set the location of living cells on the playing field
+
     for (const cell of tableCells) {
         cell.addEventListener('click', changeState)
     }
 }
 createFirstGeneration();
 
-function convertHtmlTableToArray(tableClassName) {
+function addClassNameToTableCells() {
+    tableCells = document.querySelectorAll(".table__cell");
+    for (const cell of tableCells) {
+        if (cell.textContent === '1') {
+            cell.classList.add("table__cell--alive");
+            cell.classList.remove("table__cell--died");
+        } else if (cell.textContent === '0') {
+            cell.classList.add("table__cell--died");
+            cell.classList.remove("table__cell--alive");
+        }
+    }
+}
+
+function convertHtmlTableToArray(tableClassName) { // Generates an array from the html table of live and dead cells on the playing field
     const tableRows = document.querySelector(tableClassName).rows;
     const newArrayFromHtml = [];
     for (let i = 0; i < tableRows.length; i++) {
@@ -124,8 +141,18 @@ function convertHtmlTableToArray(tableClassName) {
     return newArrayFromHtml;
 }
 
+function startGame() {
+    const newGenerationArray = convertHtmlTableToArray(".table-container__table");
+    while (tableContainer.firstChild) {
+        tableContainer.removeChild(tableContainer.firstChild);
+    }
+    generateTableFromArray(nextGeneration(newGenerationArray));
+    addClassNameToTableCells();
+
+}
+
 startButton.addEventListener("click", (event) => {
     if (event.target.nodeName === 'BUTTON') {
-        console.table(convertHtmlTableToArray(".table-container__table"));
+        startGame();
     }
-})
+});
