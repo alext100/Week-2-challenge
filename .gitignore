@@ -107,4 +107,3 @@ dist
 .vscode/
 
 # build folder with .css files
-build/

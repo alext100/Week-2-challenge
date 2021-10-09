@@ -110,8 +110,22 @@ function createFirstGeneration() {
 }
 createFirstGeneration();
 
+function convertHtmlTableToArray(tableClassName) {
+    const tableRows = document.querySelector(tableClassName).rows;
+    const newArrayFromHtml = [];
+    for (let i = 0; i < tableRows.length; i++) {
+        const tableCell = tableRows[i].children;
+        const arrayElement = [];
+        for (let j = 0; j < tableCell.length; j++) {
+            arrayElement.push(Number(tableCell[j].innerText));
+        }
+        newArrayFromHtml.push(arrayElement);
+    }
+    return newArrayFromHtml;
+}
+
 startButton.addEventListener("click", (event) => {
     if (event.target.nodeName === 'BUTTON') {
-        startGame();
+        console.table(convertHtmlTableToArray(".table-container__table"));
     }
 })
