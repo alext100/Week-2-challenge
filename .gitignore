@@ -105,3 +105,6 @@ dist
 
 # vscode folder
 .vscode/
+
+# build folder with .css files
+build/
