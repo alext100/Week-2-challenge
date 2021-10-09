@@ -63,7 +63,7 @@ function nextGeneration(matriz) {
         [],
         [],
     ];
-    debugger;
+
     for (let i = 0; i < matriz.length; i++) {
         for (let j = 0; j < matriz[i].length; j++) {
             const numberOfLivingNeighbors = getNumberOfLivingNeighbors(matriz, i, j);
@@ -86,3 +86,42 @@ function nextGeneration(matriz) {
 console.clear();
 nextGeneration(initialMatriz);
 console.table(nextGeneration(initialMatriz));
+
+const generateTableFromArray = tableData => {
+    const table = document.createElement('table');
+    table.classList.add("table")
+    let row = {};
+    let cell = {};
+
+    tableData.forEach((rowData) => {
+        row = table.insertRow(-1); // [-1] for last position in Safari
+        row.classList.add("row")
+        rowData.forEach((cellData) => {
+            cell = row.insertCell();
+            cell.classList.add("cell");
+            cell.textContent = cellData;
+        });
+    });
+    document.body.appendChild(table);
+}
+
+generateTableFromArray(nextGeneration(initialMatriz));
+const tableCells = document.querySelectorAll(".cell");
+
+function createFirstGeneration() {
+    function changeState() {
+        if (this.textContent === '1') {
+            this.classList.add("cell--died");
+            this.classList.remove("cell--alive");
+            this.textContent = '0';
+        } else if (this.textContent === '0') {
+            this.classList.add("cell--alive");
+            this.classList.remove("cell--died");
+            this.textContent = '1';
+        }
+    }
+    for (const cell of tableCells) {
+        cell.addEventListener('click', changeState)
+    }
+}
+createFirstGeneration();
