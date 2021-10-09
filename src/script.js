@@ -118,11 +118,32 @@ const generateTableFromArray = tableData => {
         row.classList.add("row")
         rowData.forEach((cellData) => {
             cell = row.insertCell();
-            cell.classList.add("cell")
+            cell.classList.add("cell");
             cell.textContent = cellData;
         });
     });
     document.body.appendChild(table);
 }
 
-generateTableFromArray(nextGeneration(initialMatriz));
+const generatedTable = generateTableFromArray(nextGeneration(initialMatriz));
+const tableCells = document.querySelectorAll(".cell");
+
+function createFirstGeneration() {
+
+    for (const cell of tableCells) {
+        cell.addEventListener('click', marker)
+    }
+
+    function marker() {
+        if (this.textContent === '1') {
+            this.classList.add("cell--died");
+            this.classList.remove("cell--alive");
+            this.textContent = '0';
+        } else if (this.textContent === '0') {
+            this.classList.add("cell--alive");
+            this.classList.remove("cell--died");
+            this.textContent = '1';
+        }
+    }
+}
+createFirstGeneration();
