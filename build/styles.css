@@ -1,0 +1,33 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+td {
+  width: 20px;
+  height: 20px;
+  background-color: whitesmoke;
+  border: 1px solid #ccc;
+}
+
+.table__cell--alive {
+  background-color: tomato;
+}
+
+.table__cell--died {
+  background-color: whitesmoke;
+}
+
+.table-container__table {
+  position: fixed;
+  left: 100px;
+  top: 220px;
+}
+
+.buttons-block__start-button {
+  position: relative;
+  top: 350px;
+  left: 160px;
+}
+
+/*# sourceMappingURL=styles.css.map */
