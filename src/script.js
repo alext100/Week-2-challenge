@@ -111,6 +111,7 @@ console.clear();
 nextGeneration(initialMatriz);
 console.table(nextGeneration(initialMatriz));
 
+
 const table = document.querySelector('.table-container__table');
 
 const generateTableFromArray = tableData => { // Generates a table from array elements and displays it in html
@@ -166,6 +167,7 @@ function addClassNameToTableCells() {
         }
     }
 }
+addClassNameToTableCells();
 
 function convertHtmlTableToArray(tableClassName) { // Generates an array from the html table of live and dead cells on the playing field
     const tableRows = document.querySelector(tableClassName).rows;
@@ -188,7 +190,6 @@ function startGame() {
     }
     generateTableFromArray(nextGeneration(newGenerationArray));
     addClassNameToTableCells();
-
 }
 
 startButton.addEventListener("click", (event) => {
