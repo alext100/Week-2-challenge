@@ -1,5 +1,6 @@
 const tableContainer = document.getElementById("table-container");
 const startButton = document.querySelector(".buttons-block__start-button");
+const newGameButton = document.querySelector(".buttons-block__new-game-button");
 
 const initialMatriz = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -107,10 +108,8 @@ function nextGeneration(matriz) { //  Generates a new array according to the rul
     }
     return nextGenerationMatriz;
 }
-console.clear();
-nextGeneration(initialMatriz);
-console.table(nextGeneration(initialMatriz));
 
+nextGeneration(initialMatriz);
 
 const table = document.querySelector('.table-container__table');
 
@@ -183,14 +182,31 @@ function convertHtmlTableToArray(tableClassName) { // Generates an array from th
     return newArrayFromHtml;
 }
 
-function startGame() {
-    const newGenerationArray = convertHtmlTableToArray(".table-container__table");
+function removeChildNode() {
     while (tableContainer.firstChild) {
         tableContainer.removeChild(tableContainer.firstChild);
     }
+}
+
+function startGame() {
+    const newGenerationArray = convertHtmlTableToArray(".table-container__table");
+    removeChildNode();
     generateTableFromArray(nextGeneration(newGenerationArray));
     addClassNameToTableCells();
 }
+
+function newGame() {
+    removeChildNode();
+    generateTableFromArray(nextGeneration(initialMatriz));
+    addClassNameToTableCells();
+    createFirstGeneration();
+}
+
+newGameButton.addEventListener("click", (event) => {
+    if (event.target.nodeName === 'BUTTON') {
+        newGame();
+    }
+});
 
 startButton.addEventListener("click", (event) => {
     if (event.target.nodeName === 'BUTTON') {
