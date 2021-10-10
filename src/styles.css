@@ -44,7 +44,7 @@ td {
     height: 17px;
     background-color: whitesmoke;
     border: 1px solid #ccc;
-    font-size: 5px;
+    font-size: 0;
 }
 
 .table-container__table tbody,
