@@ -2,6 +2,12 @@ const tableContainer = document.getElementById("table-container");
 const startButton = document.querySelector(".buttons-block__start-button");
 const newGameButton = document.querySelector(".buttons-block__new-game-button");
 const infoSection = document.querySelector(".information");
+const rangeInput = document.querySelector(".range-input input");
+const rangeValue = document.querySelector(".range-input .value div");
+
+const start = parseFloat(rangeInput.min);
+const end = parseFloat(rangeInput.max);
+const step = parseFloat(rangeInput.step);
 
 const initialMatriz = Array(30).fill(0).map(() => Array(30).fill(0));
 
@@ -198,7 +204,7 @@ function reproduceGenerationsAutomatically() {
         if (isArraysEqul(convertHtmlTableToArray(".table-container__table"), nextGeneration(convertHtmlTableToArray(".table-container__table"))) === true) {
             setInterval(() => { clearInterval(timerId); }, 0);
         }
-    }, 500);
+    }, parseFloat(rangeInput.value));
 }
 
 newGameButton.addEventListener("click", (event) => {
@@ -211,4 +217,13 @@ startButton.addEventListener("click", (event) => {
     if (event.target.nodeName === 'BUTTON') {
         reproduceGenerationsAutomatically();
     }
+});
+
+for (let i = start; i <= end; i += step) {
+    rangeValue.innerHTML += `<div>${i}</div>`;
+}
+
+rangeInput.addEventListener("input", () => {
+    const top = parseFloat(rangeInput.value) / step * -40;
+    rangeValue.style.marginTop = `${top}px`;
 });
