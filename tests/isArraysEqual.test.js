@@ -38,7 +38,7 @@ describe("Given function isArraysEqul()", () => {
         });
     });
 
-    describe("when it recives an array ... and an array ...", () => {
+    describe("when it recives an array [ [3, 0, 5, 0, 4], [0, 0, 1, 0, 0], [0, 1, 1, 0, 0], [0, 0, 1, 0, 0], [7, 0, 1, 0, 9]] and an array [[3, 0, 0, 0, 4], [0, 0, 1, 0, 0], [0, 1, 1, 0, 0], [0, 0, 1, 0, 0], [7, 0, 1, 0, 9]]", () => {
         test("will return true", () => {
             const array1 = [
                 [3, 0, 5, 0, 4],
