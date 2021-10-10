@@ -1,17 +1,19 @@
 const tableContainer = document.getElementById("table-container");
 const startButton = document.querySelector(".buttons-block__start-button");
 const newGameButton = document.querySelector(".buttons-block__new-game-button");
+const infoSection = document.querySelector(".information")
+    //  const informationParagraph = document.querySelector(".information__paragraph");
 
 const initialMatriz = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -111,11 +113,11 @@ function nextGeneration(matriz) { //  Generates a new array according to the rul
 
 nextGeneration(initialMatriz);
 
-const table = document.querySelector('.table-container__table');
+//  const table = document.querySelector('.table-container__table');
 
 const generateTableFromArray = tableData => { // Generates a table from array elements and displays it in html
     const table = document.createElement('table');
-    table.classList.add("table-container__table")
+    table.classList.add("table-container__table");
     let row = {};
     let cell = {};
 
@@ -182,24 +184,38 @@ function convertHtmlTableToArray(tableClassName) { // Generates an array from th
     return newArrayFromHtml;
 }
 
-function removeChildNode() {
-    while (tableContainer.firstChild) {
-        tableContainer.removeChild(tableContainer.firstChild);
+function removeChildNode(domElement) {
+    while (domElement.firstChild) {
+        domElement.removeChild(domElement.firstChild);
     }
 }
 
 function startGame() {
     const newGenerationArray = convertHtmlTableToArray(".table-container__table");
-    removeChildNode();
+    removeChildNode(tableContainer);
     generateTableFromArray(nextGeneration(newGenerationArray));
     addClassNameToTableCells();
 }
 
 function newGame() {
-    removeChildNode();
+    removeChildNode(tableContainer);
     generateTableFromArray(nextGeneration(initialMatriz));
     addClassNameToTableCells();
     createFirstGeneration();
+    removeChildNode(infoSection);
+}
+
+function reproduceGenerationsAutomatically() {
+    for (let i = 0; i <= 65; i++) {
+        const numberOfGenerations = document.createElement("p");
+        setTimeout(() => {
+            removeChildNode(infoSection);
+            infoSection.appendChild(numberOfGenerations);
+            numberOfGenerations.textContent = `Generation №: ${i}`;
+            startGame();
+        }, 2000);
+
+    }
 }
 
 newGameButton.addEventListener("click", (event) => {
@@ -210,6 +226,6 @@ newGameButton.addEventListener("click", (event) => {
 
 startButton.addEventListener("click", (event) => {
     if (event.target.nodeName === 'BUTTON') {
-        startGame();
+        reproduceGenerationsAutomatically();
     }
 });
