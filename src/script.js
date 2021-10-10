@@ -27,7 +27,39 @@ function getNumberOfLivingNeighbors(matriz, i, j) { // Counts the number of neig
 }
 
 function nextGeneration(matriz) { //  Generates a new array according to the rules of the game
-    const nextGenerationMatriz = [...new Array(30)].map(elem => new Array(30));
+    //  const nextGenerationMatriz = [...new Array(30)].map(elem => new Array(30));
+    const nextGenerationMatriz = [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+    ];
     for (let i = 0; i < matriz.length; i++) {
         for (let j = 0; j < matriz[i].length; j++) {
             const numberOfLivingNeighbors = getNumberOfLivingNeighbors(matriz, i, j);
@@ -157,30 +189,20 @@ function isArraysEqul(array1, array2) {
 }
 
 function reproduceGenerationsAutomatically() {
-    for (let i = 0; i <= 65; i++) {
+    let i = 0;
+    const timerId = setInterval(() => {
+        i++;
         const numberOfGenerations = document.createElement("p");
-        setTimeout(() => {
-            removeChildNode(infoSection);
-            infoSection.appendChild(numberOfGenerations);
-            numberOfGenerations.textContent = `Generation №: ${i}`;
-            startGame();
-        }, 500);
-
-    }
+        removeChildNode(infoSection);
+        infoSection.appendChild(numberOfGenerations);
+        numberOfGenerations.textContent = `Generation №: ${i}`;
+        startGame();
+        if (isArraysEqul(convertHtmlTableToArray(".table-container__table"), nextGeneration(convertHtmlTableToArray(".table-container__table"))) === true) {
+            console.log(isArraysEqul(convertHtmlTableToArray(".table-container__table"), nextGeneration(convertHtmlTableToArray(".table-container__table"))));
+            setInterval(() => { clearInterval(timerId); }, 0);
+        }
+    }, 500);
 }
-/* function reproduceGenerationsAutomatically() {
-    for (let i = 0; i <= 200; i++) {
-        const numberOfGenerations = document.createElement("p");
-        let timerId = setTimeout(function tick() {
-            removeChildNode(infoSection);
-            infoSection.appendChild(numberOfGenerations);
-            numberOfGenerations.textContent = `Generation №: ${i}`;
-            startGame();
-            timerId = setTimeout(tick, 2000);
-        }, 2000);
-        setTimeout(() => { clearInterval(timerId); }, 5000);
-    }
-} */
 
 newGameButton.addEventListener("click", (event) => {
     if (event.target.nodeName === 'BUTTON') {
