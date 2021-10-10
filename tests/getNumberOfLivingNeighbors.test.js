@@ -52,8 +52,8 @@ function nextGeneration(matriz) { //  Generates a new array according to the rul
 }
 
 describe("Given function getNumberOfLivingNeighbors", () => {
-    describe("when it recives el array [ [0, 0, 0, 0, 0], [0, 0, 1, 0, 0], [0, 1, 1, 0, 0], [0, 0, 1, 0, 0], [0, 0, 1, 0, 0]];, row number 3 and element number 1 ", () => {
-        test("will return number of living neighbors 4", () => {
+    describe("when it recives an array [ [0, 0, 0, 0, 0], [0, 0, 1, 0, 0], [0, 1, 1, 0, 0], [0, 0, 1, 0, 0], [0, 0, 1, 0, 0]];, row number 3 and element number 1 ", () => {
+        test("will return the number of living neighbors 4", () => {
             const givenArray = [
                 [0, 0, 0, 0, 0],
                 [0, 0, 1, 0, 0],
@@ -71,8 +71,8 @@ describe("Given function getNumberOfLivingNeighbors", () => {
             expect(result).toBe(expected);
         });
     });
-    describe("when it recives el array [ [0, 0, 0, 0, 0], [0, 0, 1, 0, 0], [0, 1, 1, 0, 0], [0, 0, 1, 0, 0], [0, 0, 1, 0, 0]];, row number 1 and element number 3 ", () => {
-        test("will return number of living neighbors 2", () => {
+    describe("when it recives an array [ [0, 0, 0, 0, 0], [0, 0, 1, 0, 0], [0, 1, 1, 0, 0], [0, 0, 1, 0, 0], [0, 0, 1, 0, 0]];, row number 1 and element number 3 ", () => {
+        test("will return the number of living neighbors 2", () => {
             const givenArray = [
                 [0, 0, 0, 0, 0],
                 [0, 0, 1, 0, 0],
@@ -93,8 +93,8 @@ describe("Given function getNumberOfLivingNeighbors", () => {
 });
 
 describe("Given functions nextGeneration and getNumberOfLivingNeighbors", () => {
-    describe("when they recive el array [ [0, 0, 0, 0, 0], [0, 0, 1, 0, 0], [0, 1, 1, 0, 0], [0, 0, 1, 0, 0], [0, 0, 1, 0, 0]], and from function getNumberOfLivingNeighbors number of neighbors;, ", () => {
-        test("will return un nuevo array [ [0, 0, 0, 0, 0], [0, 1, 1, 0, 0], [0, 1, 1, 1, 0], [0, 0, 1, 1, 0], [0, 0, 0, 0, 0]]", () => {
+    describe("when they recive an array [ [0, 0, 0, 0, 0], [0, 0, 1, 0, 0], [0, 1, 1, 0, 0], [0, 0, 1, 0, 0], [0, 0, 1, 0, 0]], and from function getNumberOfLivingNeighbors number of neighbors;, ", () => {
+        test("will return the new array [ [0, 0, 0, 0, 0], [0, 1, 1, 0, 0], [0, 1, 1, 1, 0], [0, 0, 1, 1, 0], [0, 0, 0, 0, 0]]", () => {
             const givenArray = [
                 [0, 0, 0, 0, 0],
                 [0, 0, 1, 0, 0],
@@ -116,8 +116,8 @@ describe("Given functions nextGeneration and getNumberOfLivingNeighbors", () => 
             expect(result).toStrictEqual(expected);
         });
     });
-    describe("when it recives el array [ [0, 0, 0, 0, 0], [0, 0, 1, 0, 0], [0, 0, 0, 0, 0], [0, 1, 0, 1, 0], [0, 0, 1, 0, 0], ]", () => {
-        test("will return un nuevo array ", () => {
+    describe("when it recives an array [ [0, 0, 0, 0, 0], [0, 0, 1, 0, 0], [0, 0, 0, 0, 0], [0, 1, 0, 1, 0], [0, 0, 1, 0, 0], ]", () => {
+        test("will return the new array ", () => {
             const givenArray = [
                 [0, 0, 0, 0, 0],
                 [0, 0, 1, 0, 0],

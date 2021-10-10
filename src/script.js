@@ -1,10 +1,9 @@
 const tableContainer = document.getElementById("table-container");
 const startButton = document.querySelector(".buttons-block__start-button");
 const newGameButton = document.querySelector(".buttons-block__new-game-button");
-const infoSection = document.querySelector(".information")
+const infoSection = document.querySelector(".information");
 
 const initialMatriz = Array(30).fill(0).map(() => Array(30).fill(0));
-console.log('initialMatriz: ', initialMatriz);
 
 function getNumberOfLivingNeighbors(matriz, i, j) { // Counts the number of neighbors
     let numberOfLivingNeighbors = 0;
@@ -116,7 +115,6 @@ function changeState() {
 }
 
 function createFirstGeneration() { // Allows the user to set the location of living cells on the playing field
-
     for (const cell of tableCells) {
         cell.addEventListener('click', changeState)
     }
@@ -198,7 +196,6 @@ function reproduceGenerationsAutomatically() {
         numberOfGenerations.textContent = `Generation №: ${i}`;
         startGame();
         if (isArraysEqul(convertHtmlTableToArray(".table-container__table"), nextGeneration(convertHtmlTableToArray(".table-container__table"))) === true) {
-            console.log(isArraysEqul(convertHtmlTableToArray(".table-container__table"), nextGeneration(convertHtmlTableToArray(".table-container__table"))));
             setInterval(() => { clearInterval(timerId); }, 0);
         }
     }, 500);
