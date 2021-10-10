@@ -53,6 +53,7 @@ main {
     color: #e74c3c;
     cursor: pointer;
     display: flex;
+    justify-content: center;
     align-self: center;
     font-size: 1rem;
     font-weight: 400;

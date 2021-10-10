@@ -193,7 +193,7 @@ function reproduceGenerationsAutomatically() {
         const numberOfGenerations = document.createElement("p");
         removeChildNode(infoSection);
         infoSection.appendChild(numberOfGenerations);
-        numberOfGenerations.textContent = `Generation №: ${i}`;
+        numberOfGenerations.textContent = `Generacion №: ${i}`;
         startGame();
         if (isArraysEqul(convertHtmlTableToArray(".table-container__table"), nextGeneration(convertHtmlTableToArray(".table-container__table"))) === true) {
             setInterval(() => { clearInterval(timerId); }, 0);
