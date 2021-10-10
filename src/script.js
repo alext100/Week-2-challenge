@@ -2,7 +2,6 @@ const tableContainer = document.getElementById("table-container");
 const startButton = document.querySelector(".buttons-block__start-button");
 const newGameButton = document.querySelector(".buttons-block__new-game-button");
 const infoSection = document.querySelector(".information")
-    //  const informationParagraph = document.querySelector(".information__paragraph");
 
 const initialMatriz = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -112,8 +111,6 @@ function nextGeneration(matriz) { //  Generates a new array according to the rul
 }
 
 nextGeneration(initialMatriz);
-
-//  const table = document.querySelector('.table-container__table');
 
 const generateTableFromArray = tableData => { // Generates a table from array elements and displays it in html
     const table = document.createElement('table');
