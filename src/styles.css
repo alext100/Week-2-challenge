@@ -10,6 +10,9 @@ body {
 header {
     display: flex;
     justify-content: center;
+    font-size: 35px;
+    color: tomato;
+    margin-bottom: 35px;
 }
 
 main {
@@ -97,4 +100,9 @@ thead,
 tr {
     border-color: black;
     border: 1px solid #ccc;
+}
+
+.information p {
+    font-size: 30px;
+    color: tomato;
 }
