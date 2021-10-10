@@ -113,7 +113,7 @@ function changeState() {
         this.classList.add("table__cell--died");
         this.classList.remove("table__cell--alive");
         this.textContent = '0';
-    } else if (this.textContent === '0') {
+    } else {
         this.classList.add("table__cell--alive");
         this.classList.remove("table__cell--died");
         this.textContent = '1';
